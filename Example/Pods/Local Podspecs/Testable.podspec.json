@@ -1,0 +1,22 @@
+{
+  "name": "Testable",
+  "version": "0.1.0",
+  "summary": "A short description of Testable.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/pimnijman/Testable",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "pimnijman": "pim@mobilepioneers.com"
+  },
+  "source": {
+    "git": "https://github.com/pimnijman/Testable.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Testable/Classes/**/*"
+}

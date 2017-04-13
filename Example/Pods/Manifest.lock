@@ -1,0 +1,22 @@
+PODS:
+  - Nimble (5.1.1)
+  - Quick (1.0.0)
+  - Testable (0.1.0)
+
+DEPENDENCIES:
+  - Nimble (~> 5.1.1)
+  - Quick (~> 1.0.0)
+  - Testable (from `../`)
+
+EXTERNAL SOURCES:
+  Testable:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
+  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
+  Testable: 0ece7eb7c3d63a2ee43ff291ba96f6c07c312e68
+
+PODFILE CHECKSUM: ffd4ef53caf7b5bbebff4b07152b34fa2aa46c2d
+
+COCOAPODS: 1.2.0
