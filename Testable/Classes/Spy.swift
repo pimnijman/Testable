@@ -17,7 +17,7 @@ public class Spy {
     }
     
     public struct Call {
-        let args: [Any?]
+        public let args: [Any?]
     }
     
     
