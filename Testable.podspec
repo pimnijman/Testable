@@ -17,9 +17,9 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-    A Swift mocking framework to easily spy on your test doubles or turn them into stubs.
-                       DESC
+#  s.description      = <<-DESC
+#   A Swift mocking framework to easily spy on your test doubles or turn them into stubs.
+#                      DESC
 
   s.homepage         = 'https://github.com/pimnijman/Testable'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
