@@ -9,4 +9,4 @@
 import Foundation
 
 
-public class Stub { }
+public class Stub: Spy { }

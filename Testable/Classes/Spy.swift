@@ -25,6 +25,10 @@ public class Spy {
     let verb: Verb?
     var calls: [Call] = []
     
+    convenience init(declarationName: String) {
+        self.init(declarationName: declarationName, verb: nil)
+    }
+    
     /// The number of recorded calls.
     public var callCount: Int {
         return calls.count
