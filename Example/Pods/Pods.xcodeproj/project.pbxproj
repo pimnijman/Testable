@@ -32,8 +32,10 @@
 		3915DBB4731CB17B255A7FE86E240B6E /* CwlCatchBadInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE6D090220683EB93ACD11A04038DD /* CwlCatchBadInstruction.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		3D618DDA483D3ABB7F2F65EE0A05C2CB /* NSBundle+CurrentTestBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E409DD20CA59AA8A9A08E2B0B1B5F /* NSBundle+CurrentTestBundle.swift */; };
 		3DC5D1C433CE157AE810CAC7E00AC31A /* QuickConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1C4C62388DB655C455E30CDF8012B /* QuickConfiguration.m */; };
+		3E1AEB3B1EC44651002B4094 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AEB391EC43BC1002B4094 /* Stub.swift */; };
 		3E6804BF1E9A38B70087C97A /* Spy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6804BE1E9A38B70087C97A /* Spy.swift */; };
 		3E6804C11E9A390B0087C97A /* Spyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6804C01E9A390B0087C97A /* Spyable.swift */; };
+		3E9ED7F51EA4B7210035F781 /* Stubable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9ED7F11EA26A8A0035F781 /* Stubable.swift */; };
 		45AF0D1739B5920AF2FA8A1CC23D96D4 /* Pods-Testable_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F6EB9834207BB9A3FDDB3EE98AA7A2 /* Pods-Testable_Tests-dummy.m */; };
 		469E9C3ED9FD6009F7C9AAF9E537E212 /* Nimble.h in Headers */ = {isa = PBXBuildFile; fileRef = CE7DD158EC41F47A2796AB19C2CD1AD8 /* Nimble.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		491F57D582BE80EC93731754BCB5CB37 /* World+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93CBD5A8C953715B286CC18EBD89EA5 /* World+DSL.swift */; };
@@ -175,8 +177,10 @@
 		33C4401213EBEC6BC1797D974E52767D /* AssertionRecorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssertionRecorder.swift; path = Sources/Nimble/Adapters/AssertionRecorder.swift; sourceTree = "<group>"; };
 		34A75F31981AD95B5B912A4D5D22BAA8 /* Testable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Testable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F9E76E718B474FBEB8C1824AA1413A /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Quick/Filter.swift; sourceTree = "<group>"; };
+		3E1AEB391EC43BC1002B4094 /* Stub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		3E6804BE1E9A38B70087C97A /* Spy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spy.swift; sourceTree = "<group>"; };
 		3E6804C01E9A390B0087C97A /* Spyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spyable.swift; sourceTree = "<group>"; };
+		3E9ED7F11EA26A8A0035F781 /* Stubable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stubable.swift; sourceTree = "<group>"; };
 		4606F71071333AEDF06D8E31389AECC9 /* World.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = World.h; path = Sources/QuickObjectiveC/World.h; sourceTree = "<group>"; };
 		462592DD75CDB244835F58221773956C /* Closures.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Closures.swift; path = Sources/Quick/Hooks/Closures.swift; sourceTree = "<group>"; };
 		473162EAADE47F759500100475A4A4BE /* Quick.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Quick.xcconfig; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 			children = (
 				3E6804BE1E9A38B70087C97A /* Spy.swift */,
 				3E6804C01E9A390B0087C97A /* Spyable.swift */,
+				3E1AEB391EC43BC1002B4094 /* Stub.swift */,
+				3E9ED7F11EA26A8A0035F781 /* Stubable.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -806,8 +812,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D63AE05B36052B32E969DE259A124D24 /* Testable-dummy.m in Sources */,
+				3E1AEB3B1EC44651002B4094 /* Stub.swift in Sources */,
 				3E6804BF1E9A38B70087C97A /* Spy.swift in Sources */,
 				3E6804C11E9A390B0087C97A /* Spyable.swift in Sources */,
+				3E9ED7F51EA4B7210035F781 /* Stubable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

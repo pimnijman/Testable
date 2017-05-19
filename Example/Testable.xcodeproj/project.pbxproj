@@ -7,15 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E1AEB381EC43B88002B4094 /* StubSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1AEB371EC43B88002B4094 /* StubSpec.swift */; };
 		3E6804C31E9A3A5C0087C97A /* SpyableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6804C21E9A3A5C0087C97A /* SpyableSpec.swift */; };
 		3E86288B1E9E5E6B0084A0C8 /* SpySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E86288A1E9E5E6B0084A0C8 /* SpySpec.swift */; };
+		3E9ED7F41EA26D530035F781 /* StubableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9ED7F31EA26D530035F781 /* StubableSpec.swift */; };
 		4BC4FA87FCFEB7ED487C2657 /* Pods_Testable_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07682AC6A3B0598430FBB0D /* Pods_Testable_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		31C47F5472C6A6846E4E19F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		3E1AEB371EC43B88002B4094 /* StubSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubSpec.swift; sourceTree = "<group>"; };
 		3E6804C21E9A3A5C0087C97A /* SpyableSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpyableSpec.swift; sourceTree = "<group>"; };
 		3E86288A1E9E5E6B0084A0C8 /* SpySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpySpec.swift; sourceTree = "<group>"; };
+		3E9ED7F31EA26D530035F781 /* StubableSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubableSpec.swift; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Testable_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Testable_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8040EE4768ADD788348663D9 /* Pods-Testable_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Testable_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Testable_Tests/Pods-Testable_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 			children = (
 				3E6804C21E9A3A5C0087C97A /* SpyableSpec.swift */,
 				3E86288A1E9E5E6B0084A0C8 /* SpySpec.swift */,
+				3E9ED7F31EA26D530035F781 /* StubableSpec.swift */,
+				3E1AEB371EC43B88002B4094 /* StubSpec.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -224,6 +230,8 @@
 			files = (
 				3E6804C31E9A3A5C0087C97A /* SpyableSpec.swift in Sources */,
 				3E86288B1E9E5E6B0084A0C8 /* SpySpec.swift in Sources */,
+				3E1AEB381EC43B88002B4094 /* StubSpec.swift in Sources */,
+				3E9ED7F41EA26D530035F781 /* StubableSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
