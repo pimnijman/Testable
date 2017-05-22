@@ -26,8 +26,15 @@ extension Stubable {
     
     public func recordCall(toMethod methodName: String = #function, withArgs args: Any...) -> Any? {
         let stub = self.stub(forMethod: methodName)
+        
+        let validRules = stub.rules.filter {
+            $0.onCall == stub.callCount || $0.onCall == nil
+        }
+        let returnValue = validRules.last?.returnValue
+        
         stub.recordCall(withArgs: args)
-        return stub.rules.last?.returnValue
+        
+        return returnValue
     }
     
     public func stub(forMethod methodName: String) -> Stub {

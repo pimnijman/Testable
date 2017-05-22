@@ -120,7 +120,7 @@ class StubableSpec: QuickSpec {
                                 ]
                             }
                             
-                            it("should return the expected return value every time") {
+                            it("should always return the expected return value") {
                                 expect(returnValues[0] as? String) == "foo"
                                 expect(returnValues[1] as? String) == "foo"
                                 expect(returnValues[2] as? String) == "foo"
@@ -130,8 +130,9 @@ class StubableSpec: QuickSpec {
                     
                     context("the expected return value is set twice") {
                         beforeEach {
-                            someObject.stub(forMethod: "someMethod()").returns("foo")
-                            someObject.stub(forMethod: "someMethod()").returns("bar")
+                            let stub = someObject.stub(forMethod: "someMethod()")
+                            stub.returns("foo")
+                            stub.returns("bar")
                         }
                         
                         context("one of the object's methods gets called thrice") {
@@ -144,10 +145,83 @@ class StubableSpec: QuickSpec {
                                 ]
                             }
                             
-                            it("should return the second expected return value every time") {
+                            it("should always return the second expected return value") {
                                 expect(returnValues[0] as? String) == "bar"
                                 expect(returnValues[1] as? String) == "bar"
                                 expect(returnValues[2] as? String) == "bar"
+                            }
+                        }
+                    }
+                    
+                    context("the expected return value is set for a specific call") {
+                        beforeEach {
+                            someObject.stub(forMethod: "someMethod()").onSecondCall().returns("foo")
+                        }
+                        
+                        context("one of the object's methods gets called thrice") {
+                            var returnValues: [Any?] = []
+                            beforeEach {
+                                returnValues = [
+                                    someObject.someMethod(),
+                                    someObject.someMethod(),
+                                    someObject.someMethod()
+                                ]
+                            }
+                            
+                            it("should return the expected return value on the second call") {
+                                expect(returnValues[0] as? String).to(beNil())
+                                expect(returnValues[1] as? String) == "foo"
+                                expect(returnValues[2] as? String).to(beNil())
+                            }
+                        }
+                    }
+                    
+                    context("the expected return value is set for a specific call and overridden") {
+                        beforeEach {
+                            let stub = someObject.stub(forMethod: "someMethod()")
+                            stub.onSecondCall().returns("foo")
+                            stub.returns("bar")
+                        }
+                        
+                        context("one of the object's methods gets called thrice") {
+                            var returnValues: [Any?] = []
+                            beforeEach {
+                                returnValues = [
+                                    someObject.someMethod(),
+                                    someObject.someMethod(),
+                                    someObject.someMethod()
+                                ]
+                            }
+                            
+                            it("should always return the second expected return value") {
+                                expect(returnValues[0] as? String) == "bar"
+                                expect(returnValues[1] as? String) == "bar"
+                                expect(returnValues[2] as? String) == "bar"
+                            }
+                        }
+                    }
+                    
+                    context("the expected return value is set and overridden for a specific call") {
+                        beforeEach {
+                            let stub = someObject.stub(forMethod: "someMethod()")
+                            stub.returns("foo")
+                            stub.onSecondCall().returns("bar")
+                        }
+                        
+                        context("one of the object's methods gets called thrice") {
+                            var returnValues: [Any?] = []
+                            beforeEach {
+                                returnValues = [
+                                    someObject.someMethod(),
+                                    someObject.someMethod(),
+                                    someObject.someMethod()
+                                ]
+                            }
+                            
+                            it("should return the second expected return value on the second call and the first expected value every on other call") {
+                                    expect(returnValues[0] as? String) == "foo"
+                                    expect(returnValues[1] as? String) == "bar"
+                                    expect(returnValues[2] as? String) == "foo"
                             }
                         }
                     }
