@@ -20,6 +20,24 @@ class StubSpec: QuickSpec {
                 expect(stub as Spy).toNot(beNil())
             }
             
+            describe("returns(_:)") {
+                    
+                context("returns(_:) is called") {
+                    var stub: Stub!
+                    beforeEach {
+                        stub = Stub(declarationName: "someMethod()")
+                        stub.returns("foo")
+                    }
+                    
+                    it("should add a rule to the rules array") {
+                        expect(stub.rules.count) == 1
+                        expect(stub.rules.first?.returnValue as? String) == "foo"
+                        expect(stub.rules.first?.onCall).to(beNil())
+                    }
+                }
+                
+            }
+            
         }
         
     }
