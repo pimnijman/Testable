@@ -97,17 +97,17 @@ public class Spy {
         }.count
     }
     
-    /// Returns the number of times a call was recorded with with the provided arguments
+    /// Returns the number of times a call was recorded with with the provided arguments.
     public func callCount(withArgs args: Any...) -> Int {
         return callCount(withArgs: args)
     }
     
-    /// Returns a Boolean value indicating whether at least one call was recorded with the provided arguments
+    /// Returns a Boolean value indicating whether at least one call was recorded with the provided arguments.
     public func called(withArgs args: Any...) -> Bool {
         return callCount(withArgs: args) > 0
     }
     
-    /// Returns a Boolean value indicating whether all calls were recorded with the provided arguments
+    /// Returns a Boolean value indicating whether all calls were recorded with the provided arguments.
     public func alwaysCalled(withArgs args: Any...) -> Bool {
         return callCount(withArgs: args) == callCount
     }
