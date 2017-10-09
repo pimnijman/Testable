@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Testable'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'A Swift mocking framework to easily spy on your test doubles or turn them into stubs.'
 
 # This description is used to generate tags and improve search results.
