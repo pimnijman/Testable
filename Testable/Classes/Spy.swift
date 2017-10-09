@@ -23,7 +23,9 @@ public class Spy {
     
     let declarationName: String
     let verb: Verb?
-    var calls: [Call] = []
+    
+    /// The recorded calls.
+    public private(set) var calls: [Call] = []
     
     /// The number of recorded calls.
     public var callCount: Int {
