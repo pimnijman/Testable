@@ -156,202 +156,412 @@ class SpySpec: QuickSpec {
             }
             
             context("a Spy has one recorded call") {
-                beforeEach {
-                    spy.recordCall(withArgs: [ "First" ])
-                }
                 
-                describe("callCount") {
-                    it("should return 1") {
-                        expect(spy.callCount) == 1
+                context("the call was recorded with a single argument") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "First" ])
+                    }
+                    
+                    describe("callCount") {
+                        it("should return 1") {
+                            expect(spy.callCount) == 1
+                        }
+                    }
+                    
+                    describe("called") {
+                        it("should return true") {
+                            expect(spy.called) == true
+                        }
+                    }
+                    
+                    describe("notCalled") {
+                        it("should return false") {
+                            expect(spy.notCalled) == false
+                        }
+                    }
+                    
+                    describe("calledOnce") {
+                        it("should return true") {
+                            expect(spy.calledOnce) == true
+                        }
+                    }
+                    
+                    describe("calledTwice") {
+                        it("should return false") {
+                            expect(spy.calledTwice) == false
+                        }
+                    }
+                    
+                    describe("calledThrice") {
+                        it("should return false") {
+                            expect(spy.calledThrice) == false
+                        }
+                    }
+                    
+                    describe("firstCall") {
+                        it("should return the first call") {
+                            expect(spy.firstCall?.args[0] as? String) == "First"
+                        }
+                    }
+                    
+                    describe("secondCall") {
+                        it("should return nil") {
+                            expect(spy.secondCall).to(beNil())
+                        }
+                    }
+                    
+                    describe("thirdCall") {
+                        it("should return nil") {
+                            expect(spy.thirdCall).to(beNil())
+                        }
+                    }
+                    
+                    describe("lastCall") {
+                        it("should return the last call") {
+                            expect(spy.lastCall?.args[0] as? String) == "First"
+                        }
+                    }
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "First")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Second")).to(equal(0))
+                            expect(spy.callCount(withArgs: "Third")).to(equal(0))
+                        }
+                    }
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "First")).to(beTrue())
+                            expect(spy.called(withArgs: "Second")).to(beFalse())
+                            expect(spy.called(withArgs: "Third")).to(beFalse())
+                        }
+                    }
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "First")).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "Second")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Third")).to(beFalse())
+                        }
                     }
                 }
                 
-                describe("called") {
-                    it("should return true") {
-                        expect(spy.called) == true
+                context("the call was recorded with multiple arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "First", 42, true ])
                     }
-                }
-                
-                describe("notCalled") {
-                    it("should return false") {
-                        expect(spy.notCalled) == false
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "First", 42, true, "Second")).to(equal(0))
+                            expect(spy.callCount(withArgs: "First", 42, true)).to(equal(1))
+                            expect(spy.callCount(withArgs: "First", 42, false)).to(equal(0))
+                            expect(spy.callCount(withArgs: "First", 42)).to(equal(1))
+                            expect(spy.callCount(withArgs: "First", 99)).to(equal(0))
+                            expect(spy.callCount(withArgs: "First")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Second")).to(equal(0))
+                        }
                     }
-                }
-                
-                describe("calledOnce") {
-                    it("should return true") {
-                        expect(spy.calledOnce) == true
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "First", 42, true, "Second")).to(beFalse())
+                            expect(spy.called(withArgs: "First", 42, true)).to(beTrue())
+                            expect(spy.called(withArgs: "First", 42, false)).to(beFalse())
+                            expect(spy.called(withArgs: "First", 42)).to(beTrue())
+                            expect(spy.called(withArgs: "First", 99)).to(beFalse())
+                            expect(spy.called(withArgs: "First")).to(beTrue())
+                            expect(spy.called(withArgs: "Second")).to(beFalse())
+                        }
                     }
-                }
-                
-                describe("calledTwice") {
-                    it("should return false") {
-                        expect(spy.calledTwice) == false
-                    }
-                }
-                
-                describe("calledThrice") {
-                    it("should return false") {
-                        expect(spy.calledThrice) == false
-                    }
-                }
-                
-                describe("firstCall") {
-                    it("should return the first call") {
-                        expect(spy.firstCall?.args[0] as? String) == "First"
-                    }
-                }
-                
-                describe("secondCall") {
-                    it("should return nil") {
-                        expect(spy.secondCall).to(beNil())
-                    }
-                }
-                
-                describe("thirdCall") {
-                    it("should return nil") {
-                        expect(spy.thirdCall).to(beNil())
-                    }
-                }
-                
-                describe("lastCall") {
-                    it("should return the last call") {
-                        expect(spy.lastCall?.args[0] as? String) == "First"
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "First", 42, true, "Second")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "First", 42, true)).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "First", 42, false)).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "First", 42)).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "First", 99)).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "First")).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "Second")).to(beFalse())
+                        }
                     }
                 }
             }
             
             context("a Spy has two recorded calls") {
-                beforeEach {
-                    spy.recordCall(withArgs: [ "First" ])
-                    spy.recordCall(withArgs: [ "Second" ])
-                }
                 
-                describe("callCount") {
-                    it("should return 2") {
-                        expect(spy.callCount) == 2
+                context("all calls were recorded with different arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "First" ])
+                        spy.recordCall(withArgs: [ "Second" ])
+                    }
+                    
+                    describe("callCount") {
+                        it("should return 2") {
+                            expect(spy.callCount) == 2
+                        }
+                    }
+                    
+                    describe("called") {
+                        it("should return true") {
+                            expect(spy.called) == true
+                        }
+                    }
+                    
+                    describe("notCalled") {
+                        it("should return false") {
+                            expect(spy.notCalled) == false
+                        }
+                    }
+                    
+                    describe("calledOnce") {
+                        it("should return false") {
+                            expect(spy.calledOnce) == false
+                        }
+                    }
+                    
+                    describe("calledTwice") {
+                        it("should return true") {
+                            expect(spy.calledTwice) == true
+                        }
+                    }
+                    
+                    describe("calledThrice") {
+                        it("should return false") {
+                            expect(spy.calledThrice) == false
+                        }
+                    }
+                    
+                    describe("firstCall") {
+                        it("should return the first call") {
+                            expect(spy.firstCall?.args[0] as? String) == "First"
+                        }
+                    }
+                    
+                    describe("secondCall") {
+                        it("should return the second call") {
+                            expect(spy.secondCall?.args[0] as? String) == "Second"
+                        }
+                    }
+                    
+                    describe("thirdCall") {
+                        it("should return nil") {
+                            expect(spy.thirdCall).to(beNil())
+                        }
+                    }
+                    
+                    describe("lastCall") {
+                        it("should return the last call") {
+                            expect(spy.lastCall?.args[0] as? String) == "Second"
+                        }
+                    }
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "First")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Second")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Third")).to(equal(0))
+                        }
+                    }
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "First")).to(beTrue())
+                            expect(spy.called(withArgs: "Second")).to(beTrue())
+                            expect(spy.called(withArgs: "Third")).to(beFalse())
+                        }
+                    }
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "First")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Second")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Third")).to(beFalse())
+                        }
                     }
                 }
                 
-                describe("called") {
-                    it("should return true") {
-                        expect(spy.called) == true
+                context("all calls were recorded with the same arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "Test" ])
+                        spy.recordCall(withArgs: [ "Test" ])
+                    }
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "Test")).to(equal(2))
+                            expect(spy.callCount(withArgs: "Other")).to(equal(0))
+                        }
+                    }
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "Test")).to(beTrue())
+                            expect(spy.called(withArgs: "Other")).to(beFalse())
+                        }
+                    }
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "Test")).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "Other")).to(beFalse())
+                        }
                     }
                 }
                 
-                describe("notCalled") {
-                    it("should return false") {
-                        expect(spy.notCalled) == false
-                    }
-                }
-                
-                describe("calledOnce") {
-                    it("should return false") {
-                        expect(spy.calledOnce) == false
-                    }
-                }
-                
-                describe("calledTwice") {
-                    it("should return true") {
-                        expect(spy.calledTwice) == true
-                    }
-                }
-                
-                describe("calledThrice") {
-                    it("should return false") {
-                        expect(spy.calledThrice) == false
-                    }
-                }
-                
-                describe("firstCall") {
-                    it("should return the first call") {
-                        expect(spy.firstCall?.args[0] as? String) == "First"
-                    }
-                }
-                
-                describe("secondCall") {
-                    it("should return the second call") {
-                        expect(spy.secondCall?.args[0] as? String) == "Second"
-                    }
-                }
-                
-                describe("thirdCall") {
-                    it("should return nil") {
-                        expect(spy.thirdCall).to(beNil())
-                    }
-                }
-                
-                describe("lastCall") {
-                    it("should return the last call") {
-                        expect(spy.lastCall?.args[0] as? String) == "Second"
-                    }
-                }
             }
             
             context("a Spy has three recorded calls") {
-                beforeEach {
-                    spy.recordCall(withArgs: [ "First" ])
-                    spy.recordCall(withArgs: [ "Second" ])
-                    spy.recordCall(withArgs: [ "Third" ])
-                }
                 
-                describe("callCount") {
-                    it("should return 3") {
-                        expect(spy.callCount) == 3
+                context("all calls were recorded with different arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "First" ])
+                        spy.recordCall(withArgs: [ "Second" ])
+                        spy.recordCall(withArgs: [ "Third" ])
+                    }
+                    
+                    describe("callCount") {
+                        it("should return 3") {
+                            expect(spy.callCount) == 3
+                        }
+                    }
+                    
+                    describe("called") {
+                        it("should return true") {
+                            expect(spy.called) == true
+                        }
+                    }
+                    
+                    describe("notCalled") {
+                        it("should return false") {
+                            expect(spy.notCalled) == false
+                        }
+                    }
+                    
+                    describe("calledOnce") {
+                        it("should return false") {
+                            expect(spy.calledOnce) == false
+                        }
+                    }
+                    
+                    describe("calledTwice") {
+                        it("should return false") {
+                            expect(spy.calledTwice) == false
+                        }
+                    }
+                    
+                    describe("calledThrice") {
+                        it("should return true") {
+                            expect(spy.calledThrice) == true
+                        }
+                    }
+                    
+                    describe("firstCall") {
+                        it("should return the first call") {
+                            expect(spy.firstCall?.args[0] as? String) == "First"
+                        }
+                    }
+                    
+                    describe("secondCall") {
+                        it("should return the second call") {
+                            expect(spy.secondCall?.args[0] as? String) == "Second"
+                        }
+                    }
+                    
+                    describe("thirdCall") {
+                        it("should return the third call") {
+                            expect(spy.thirdCall?.args[0] as? String) == "Third"
+                        }
+                    }
+                    
+                    describe("lastCall") {
+                        it("should return the last call") {
+                            expect(spy.lastCall?.args[0] as? String) == "Third"
+                        }
+                    }
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "First")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Second")).to(equal(1))
+                            expect(spy.callCount(withArgs: "Third")).to(equal(1))
+                        }
+                    }
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "First")).to(beTrue())
+                            expect(spy.called(withArgs: "Second")).to(beTrue())
+                            expect(spy.called(withArgs: "Third")).to(beTrue())
+                        }
+                    }
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "First")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Second")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Third")).to(beFalse())
+                        }
                     }
                 }
                 
-                describe("called") {
-                    it("should return true") {
-                        expect(spy.called) == true
+                context("some calls were recorded with the same arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "Test" ])
+                        spy.recordCall(withArgs: [ "Other" ])
+                        spy.recordCall(withArgs: [ "Test" ])
+                    }
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "Test")).to(equal(2))
+                            expect(spy.callCount(withArgs: "Other")).to(equal(1))
+                        }
+                    }
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "Test")).to(beTrue())
+                            expect(spy.called(withArgs: "Other")).to(beTrue())
+                        }
+                    }
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "Test")).to(beFalse())
+                            expect(spy.alwaysCalled(withArgs: "Other")).to(beFalse())
+                        }
                     }
                 }
                 
-                describe("notCalled") {
-                    it("should return false") {
-                        expect(spy.notCalled) == false
+                context("all calls were recorded with the same arguments") {
+                    beforeEach {
+                        spy.recordCall(withArgs: [ "Test" ])
+                        spy.recordCall(withArgs: [ "Test" ])
+                        spy.recordCall(withArgs: [ "Test" ])
                     }
-                }
-                
-                describe("calledOnce") {
-                    it("should return false") {
-                        expect(spy.calledOnce) == false
+                    
+                    describe("callCount(withArgs:)") {
+                        it("should return the number of times a call was recorded with the provided arguments") {
+                            expect(spy.callCount(withArgs: "Test")).to(equal(3))
+                            expect(spy.callCount(withArgs: "Other")).to(equal(0))
+                        }
                     }
-                }
-                
-                describe("calledTwice") {
-                    it("should return false") {
-                        expect(spy.calledTwice) == false
+                    
+                    describe("called(withArgs:)") {
+                        it("should return true when a call was recorded with the provided arguments") {
+                            expect(spy.called(withArgs: "Test")).to(beTrue())
+                            expect(spy.called(withArgs: "Other")).to(beFalse())
+                        }
                     }
-                }
-                
-                describe("calledThrice") {
-                    it("should return true") {
-                        expect(spy.calledThrice) == true
-                    }
-                }
-                
-                describe("firstCall") {
-                    it("should return the first call") {
-                        expect(spy.firstCall?.args[0] as? String) == "First"
-                    }
-                }
-                
-                describe("secondCall") {
-                    it("should return the second call") {
-                        expect(spy.secondCall?.args[0] as? String) == "Second"
-                    }
-                }
-                
-                describe("thirdCall") {
-                    it("should return the third call") {
-                        expect(spy.thirdCall?.args[0] as? String) == "Third"
-                    }
-                }
-                
-                describe("lastCall") {
-                    it("should return the last call") {
-                        expect(spy.lastCall?.args[0] as? String) == "Third"
+                    
+                    describe("alwaysCalled(withArgs:)") {
+                        it("should return true when all calls were recorded with the provided arguments") {
+                            expect(spy.alwaysCalled(withArgs: "Test")).to(beTrue())
+                            expect(spy.alwaysCalled(withArgs: "Other")).to(beFalse())
+                        }
                     }
                 }
             }
