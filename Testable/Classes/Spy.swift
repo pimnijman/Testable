@@ -23,7 +23,9 @@ public class Spy {
     
     let declarationName: String
     let verb: Verb?
-    var calls: [Call] = []
+    
+    /// The recorded calls.
+    public private(set) var calls: [Call] = []
     
     /// The number of recorded calls.
     public var callCount: Int {
@@ -79,6 +81,35 @@ public class Spy {
     
     func recordCall(withValue value: Any?) {
         calls.append(Call(args: [ value ]))
+    }
+    
+    private func callCount(withArgs args: [Any]) -> Int {
+        return calls.filter { (call) -> Bool in
+            guard args.count <= call.args.count else {
+                // The number of provided arguments is greater than the number of recorded arguments
+                return false
+            }
+            for i in 0 ..< args.count {
+                guard let a = args[i] as? NSObject, let b = call.args[i] as? NSObject else { return false }
+                if a != b { return false }
+            }
+            return true
+        }.count
+    }
+    
+    /// Returns the number of times a call was recorded with with the provided arguments.
+    public func callCount(withArgs args: Any...) -> Int {
+        return callCount(withArgs: args)
+    }
+    
+    /// Returns a Boolean value indicating whether at least one call was recorded with the provided arguments.
+    public func called(withArgs args: Any...) -> Bool {
+        return callCount(withArgs: args) > 0
+    }
+    
+    /// Returns a Boolean value indicating whether all calls were recorded with the provided arguments.
+    public func alwaysCalled(withArgs args: Any...) -> Bool {
+        return callCount(withArgs: args) == callCount
     }
     
     /// Reset the state of the spy.
