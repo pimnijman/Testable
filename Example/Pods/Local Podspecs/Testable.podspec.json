@@ -1,20 +1,20 @@
 {
   "name": "Testable",
   "version": "0.1.0",
-  "summary": "A short description of Testable.",
-  "description": "TODO: Add long description of the pod here.",
+  "summary": "A Swift mocking framework to easily spy on your test doubles or turn them into stubs.",
   "homepage": "https://github.com/pimnijman/Testable",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "pimnijman": "pim@mobilepioneers.com"
+    "Pim Nijman": "nijman@gmail.com"
   },
   "source": {
     "git": "https://github.com/pimnijman/Testable.git",
     "tag": "0.1.0"
   },
+  "social_media_url": "https://twitter.com/pnijman",
   "platforms": {
     "ios": "8.0"
   },
