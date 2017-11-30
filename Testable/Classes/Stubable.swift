@@ -40,6 +40,10 @@ extension Stubable {
     public func stub(forMethod methodName: String) -> Stub {
         return stub(forDeclaration: methodName)
     }
+	
+	public func stub(forProperty propertyName: String) -> Stub {
+		return stub(forDeclaration: propertyName)
+	}
     
     private func stub(forDeclaration declarationName: String) -> Stub {
         var stub: Stub!
