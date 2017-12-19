@@ -74,6 +74,49 @@ class StubableSpec: QuickSpec {
                     }
                     
                 }
+				
+				describe("stub(forProperty:)") {
+					
+					context("stub(forProperty:) is called") {
+						var stub: Stub!
+						beforeEach {
+							stub = someObject.stub(forProperty: "someProperty")
+						}
+						
+						it("should return a stub with the expected declaration name") {
+							expect(stub.declarationName) == "someProperty"
+						}
+					}
+					
+					context("stub(forProperty:) is called twice with the same property name") {
+						var firstStub: Stub!
+						var secondStub: Stub!
+						beforeEach {
+							firstStub = someObject.stub(forProperty: "someProperty")
+							secondStub = someObject.stub(forProperty: "someProperty")
+						}
+						
+						it("should return the same stub twice") {
+							expect(secondStub) === firstStub
+						}
+					}
+					
+					context("stub(forProperty:) is called twice with different property names") {
+						var firstStub: Stub!
+						var secondStub: Stub!
+						beforeEach {
+							firstStub = someObject.stub(forMethod: "someProperty")
+							secondStub = someObject.stub(forMethod: "someOtherProperty")
+						}
+						
+						it("should return the two different stubs with the expected declaration names") {
+							expect(secondStub) !== firstStub
+							expect(firstStub.declarationName) == "someProperty"
+							expect(secondStub.declarationName) == "someOtherProperty"
+						}
+					}
+					
+				}
                 
                 describe("recordCall()") {
                     
