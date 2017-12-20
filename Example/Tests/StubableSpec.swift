@@ -24,8 +24,11 @@ class StubableSpec: QuickSpec {
             context("an object who's class extends the Stubable protocol calls recordCall() from it's method and returns it's value") {
                 class SomeClass: Stubable {
                     func someMethod() -> String? {
-                        return recordCall() as? String
-                    }
+						return recordCall() as? String
+					}
+					func someMethod(arg: String) -> String? {
+						return recordCall(withArgs: arg) as? String
+					}
                 }
                 var someObject: SomeClass!
                 beforeEach {
@@ -268,7 +271,59 @@ class StubableSpec: QuickSpec {
                             }
                         }
                     }
-                    
+					
+					context("the expected return value is set for a specific argument") {
+						beforeEach {
+							someObject.stub(forMethod: "someMethod(arg:)").withArgs("foo").returns("bar")
+						}
+						
+						context("the object's method gets called with some arguments") {
+							var returnValues: [Any?] = []
+							beforeEach {
+								returnValues = [
+									someObject.someMethod(arg: "foo"),
+									someObject.someMethod(arg: "baz"),
+									someObject.someMethod(arg: "quux")
+								]
+							}
+							
+							it("should return the expected return value when called with the specific argument") {
+								expect(returnValues[0] as? String) == "bar"
+								expect(returnValues[1] as? String).to(beNil())
+								expect(returnValues[2] as? String).to(beNil())
+							}
+						}
+					}
+					
+					context("the expected return value is set for a specific call and specific argument") {
+						beforeEach {
+							someObject.stub(forMethod: "someMethod(arg:)").onSecondCall().withArgs("foo").returns("bar")
+						}
+
+						context("the object's method gets called with some arguments") {
+							var returnValues: [Any?] = []
+							beforeEach {
+								returnValues = [
+									someObject.someMethod(arg: "foo"),
+									someObject.someMethod(arg: "baz"),
+									someObject.someMethod(arg: "foo"), // This is the second time the method is called with "foo"
+									someObject.someMethod(arg: "quux"),
+									someObject.someMethod(arg: "foo"),
+									someObject.someMethod(arg: "baz")
+								]
+							}
+
+							it("should return the expected return value when the function is called with the specific argument for the second time") {
+								expect(returnValues[0] as? String).to(beNil())
+								expect(returnValues[1] as? String).to(beNil())
+								expect(returnValues[2] as? String) == "bar"
+								expect(returnValues[3] as? String).to(beNil())
+								expect(returnValues[4] as? String).to(beNil())
+								expect(returnValues[5] as? String).to(beNil())
+							}
+						}
+					}
+					
                 }
                 
             }

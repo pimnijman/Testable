@@ -19,6 +19,37 @@ class StubSpec: QuickSpec {
                 let stub = Stub(declarationName: "someMethod()")
                 expect(stub as Spy).toNot(beNil())
             }
+			
+			describe("withArgs(_:)") {
+				
+				context("there is no partial rule yet") {
+					var stub: Stub!
+					beforeEach {
+						stub = Stub(declarationName: "someMethod()")
+					}
+					it("should return the stub itself with a partial rule") {
+						let returnedStub = stub.withArgs("The meaning of life", 42)
+						expect(returnedStub) === stub
+						expect(returnedStub.partialRule?.onCall).to(beNil())
+						expect(returnedStub.partialRule?.withArgs?[0] as? String) == "The meaning of life"
+						expect(returnedStub.partialRule?.withArgs?[1] as? Int) == 42
+					}
+				}
+				context("there is already a partial rule") {
+					var stub: Stub!
+					beforeEach {
+						stub = Stub(declarationName: "someMethod()").onCall(42)
+					}
+					it("should return the stub itself with the partial rule extended") {
+						let returnedStub = stub.withArgs("The meaning of life", 42)
+						expect(returnedStub) === stub
+						expect(returnedStub.partialRule?.onCall) == 42
+						expect(returnedStub.partialRule?.withArgs?[0] as? String) == "The meaning of life"
+						expect(returnedStub.partialRule?.withArgs?[1] as? Int) == 42
+					}
+				}
+				
+			}
             
             describe("onFirstCall(_:)") {
                 
@@ -55,12 +86,30 @@ class StubSpec: QuickSpec {
             
             describe("onCall(_:)") {
                 
-                it("should return the stub itself with a partial rule") {
-                    let stub = Stub(declarationName: "someMethod()")
-                    let returnedStub = stub.onCall(42)
-                    expect(returnedStub) === stub
-                    expect(returnedStub.partialRule?.onCall) == 42
-                }
+                context("there is no partial rule yet") {
+					var stub: Stub!
+					beforeEach {
+						stub = Stub(declarationName: "someMethod()")
+					}
+					it("should return the stub itself with a partial rule") {
+						let returnedStub = stub.onCall(42)
+						expect(returnedStub) === stub
+						expect(returnedStub.partialRule?.onCall) == 42
+					}
+				}
+				context("there is already a partial rule") {
+					var stub: Stub!
+					beforeEach {
+						stub = Stub(declarationName: "someMethod()").withArgs("The meaning of life", 42)
+					}
+					it("should return the stub itself with the partial rule extended") {
+						let returnedStub = stub.onCall(42)
+						expect(returnedStub) === stub
+						expect(returnedStub.partialRule?.onCall) == 42
+						expect(returnedStub.partialRule?.withArgs?[0] as? String) == "The meaning of life"
+						expect(returnedStub.partialRule?.withArgs?[1] as? Int) == 42
+					}
+				}
                 
             }
             
@@ -89,7 +138,7 @@ class StubSpec: QuickSpec {
                     var stub: Stub!
                     beforeEach {
                         stub = Stub(declarationName: "someMethod()")
-                        stub.partialRule = Stub.Rule(returnValue: nil, onCall: 42)
+						stub.partialRule = Stub.Rule(returnValue: nil, onCall: 42, withArgs: ["The meaning of life", 42])
                     }
                     
                     context("returns(_:) is called") {
@@ -101,6 +150,8 @@ class StubSpec: QuickSpec {
                             expect(stub.rules.count) == 1
                             expect(stub.rules.first?.returnValue as? String) == "foo"
                             expect(stub.rules.first?.onCall) == 42
+							expect(stub.rules.first?.withArgs?[0] as? String) == "The meaning of life"
+							expect(stub.rules.first?.withArgs?[1] as? Int) == 42
                         }
                         
                         it("should have removed the partial rule") {
